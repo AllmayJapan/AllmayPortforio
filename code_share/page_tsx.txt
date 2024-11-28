@@ -1,0 +1,38 @@
+import React from 'react';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import Header from '@/components/Header';
+import BackgroundVideo from '@/components/BackGroundVideo';
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#1976d2',
+        },
+        secondary: {
+            main: '#d32f2f',
+        },
+    },
+});
+
+export default function Page({ Component, pageProps }: { Component: React.ElementType; pageProps: any }) {
+    if (!Component) {
+        console.log("Header:", Header);
+        console.log("BackgroundVideo:", BackgroundVideo);
+        console.log("Component:", Component);
+        console.error("Error: Component is undefined.");
+        return null;
+    }
+    return (
+        <div style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
+            <BackgroundVideo />
+            <ThemeProvider theme={theme}>
+                <Header />
+                <CssBaseline />
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                    <Component {...pageProps} />
+                </div>
+            </ThemeProvider>
+        </div>
+    );
+}

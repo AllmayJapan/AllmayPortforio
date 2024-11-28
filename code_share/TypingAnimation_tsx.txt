@@ -1,0 +1,33 @@
+import React, { useState, useEffect, useRef } from 'react';
+
+interface TypingAnimationProps {
+    text: string; // 表示するテキスト
+    speed?: number; // タイピング速度（ミリ秒）
+    className?: string; // カスタムクラス
+}
+
+const TypingAnimation: React.FC<TypingAnimationProps> = ({
+    text,
+    speed = 100, // デフォルト速度は100ms
+    className,
+}) => {
+    const [displayedText, setDisplayedText] = useState('');
+    const index = useRef(0);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setDisplayedText((prev) => prev + text[index.current]);
+            index.current += 1;
+
+            if (index.current === text.length) {
+                clearInterval(timer);
+            }
+        }, speed);
+
+        return () => clearInterval(timer); // クリーンアップ
+    }, [text, speed]);
+
+    return <span className={className}>{displayedText}|</span>;
+};
+
+export default TypingAnimation;

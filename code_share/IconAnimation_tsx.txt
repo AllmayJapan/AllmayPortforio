@@ -1,0 +1,35 @@
+import React from "react";
+import styled, { keyframes } from "styled-components";
+
+interface IconAnimationProps {
+  children: React.ReactNode; // アイコンを受け取る
+}
+
+const floatAnimation = keyframes`
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+`;
+
+const AnimatedContainer = styled.div`
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  & > * {
+    animation: ${floatAnimation} 3s ease-in-out infinite;
+  }
+`;
+
+const IconAnimation: React.FC<IconAnimationProps> = ({ children }) => {
+  return <AnimatedContainer>{children}</AnimatedContainer>;
+};
+
+export default IconAnimation;
